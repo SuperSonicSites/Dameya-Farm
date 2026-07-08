@@ -1,0 +1,36 @@
+---
+// Card/panel — hay or green tint, 14px radius, subtle border + shadow.
+interface Props {
+  tint?: 'hay' | 'green';
+  compact?: boolean; // 1.5rem padding instead of the default 1.75rem
+  class?: string;
+}
+const { tint = 'hay', compact = false, class: className } = Astro.props;
+const classes = [
+  'card',
+  `card--${tint}`,
+  compact && 'card--compact',
+  className,
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<div class={classes}><slot /></div>
+
+<style>
+  .card {
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    padding: 1.75rem;
+  }
+  .card--compact { padding: 1.5rem; }
+  .card--hay {
+    background: var(--hay-100);
+    border: 1px solid var(--border-hay);
+  }
+  .card--green {
+    background: var(--green-100);
+    border: 1px solid var(--border-green);
+  }
+</style>

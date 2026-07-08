@@ -1,0 +1,37 @@
+---
+// An Updates list entry — date meta, serif title, excerpt, "Read more" link.
+interface Props {
+  date: string;
+  title: string;
+  excerpt: string;
+  href: string;
+}
+const { date, title, excerpt, href } = Astro.props;
+---
+
+<article class="update-item">
+  <div class="update-item__date">{date}</div>
+  <h3 class="update-item__title"><a href={href}>{title}</a></h3>
+  <p class="update-item__excerpt">{excerpt}</p>
+  <a class="update-item__more" href={href}>Read more</a>
+</article>
+
+<style>
+  .update-item {
+    padding: var(--space-6) 0;
+    border-bottom: 1px solid var(--border-hay);
+  }
+  .update-item__date {
+    font-size: var(--text-small);
+    color: var(--ink-soft);
+    margin-bottom: var(--space-1);
+  }
+  .update-item__title { margin: 0 0 var(--space-2); }
+  .update-item__title a {
+    color: var(--green-900);
+    text-decoration: none;
+  }
+  .update-item__title a:hover { color: var(--green-700); }
+  .update-item__excerpt { margin: 0 0 var(--space-2); color: var(--ink); }
+  .update-item__more { font-weight: 600; font-size: 0.95rem; }
+</style>

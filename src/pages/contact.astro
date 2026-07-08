@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Card from '../components/Card.astro';
+import Button from '../components/Button.astro';
+import { site } from '../lib/site';
+---
+
+<BaseLayout
+  title="Contact"
+  description="Get in touch with Dameya Farm in Glen Robertson, Ontario — book a petting zoo, plan a farm event, or ask a question by email or phone."
+>
+  <section class="section">
+    <Container narrow>
+      <SectionHeading
+        eyebrow="Contact"
+        title="Come say hello"
+        lead="Book a visit, plan an event, or just ask a question — reach us by email or phone and we'll get right back to you."
+      />
+
+      <div class="contact-methods">
+        <Card class="contact-method">
+          <div class="contact-method__label">Email</div>
+          <a class="contact-method__value" href={`mailto:${site.email.value}`}>
+            {site.email.value}{site.email.todo && ' (TODO)'}
+          </a>
+          <p class="contact-method__hint">The easiest way to reach us — we read every message.</p>
+          <Button href={`mailto:${site.email.value}`}>Send an email</Button>
+        </Card>
+
+        <Card class="contact-method">
+          <div class="contact-method__label">Phone</div>
+          <a class="contact-method__value" href={`tel:${site.phone.tel}`}>
+            {site.phone.value}{site.phone.todo && ' (TODO)'}
+          </a>
+          <p class="contact-method__hint">Prefer to talk it through? Give us a call.</p>
+          <Button variant="secondary" href={`tel:${site.phone.tel}`}>Call the farm</Button>
+        </Card>
+      </div>
+
+      <Card tint="green" compact class="contact-where">
+        <div class="contact-method__label">Where we are</div>
+        <p class="contact-where__text">
+          {site.town}. We host visits here at the farm and also travel for petting
+          zoos — mention what you have in mind and we'll sort out the details.
+        </p>
+      </Card>
+
+      <p class="meta beef-aside">
+        A note on beef: we're fully booked for 2026 and not taking beef orders
+        right now — check <a href="/updates/">Updates</a> for future availability.
+      </p>
+    </Container>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-6);
+    margin-bottom: var(--space-6);
+  }
+  .contact-method__label {
+    font-size: var(--text-small);
+    color: var(--ink-soft);
+    margin-bottom: var(--space-1);
+  }
+  .contact-method__value {
+    display: inline-block;
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--green-900);
+    text-decoration: none;
+    margin-bottom: var(--space-2);
+  }
+  .contact-method__value:hover { color: var(--green-700); }
+  .contact-method__hint { margin: 0 0 var(--space-6); font-size: 0.95rem; }
+
+  .contact-where { margin-bottom: var(--space-8); }
+  .contact-where__text { margin: 0; }
+
+  .beef-aside { margin-top: var(--space-8); }
+</style>

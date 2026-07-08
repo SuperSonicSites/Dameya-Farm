@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
+import CtaBand from '../components/CtaBand.astro';
+---
+
+<BaseLayout
+  title="About"
+  description="Dameya Farm is operated by Adam and Danyca Lindeman — a family farm in Glen Robertson, Ontario, raising a pasture-raised herd and welcoming visitors for petting zoos and events."
+>
+  <section class="section">
+    <Container narrow>
+      <SectionHeading
+        eyebrow="About the farm"
+        title="Family-run, out on pasture"
+        lead="We're Adam and Danyca Lindeman, and Dameya Farm is our family farm in Glen Robertson, Ontario."
+      />
+      <p>
+        The herd lives on pasture through the seasons. We keep things simple:
+        good care, good grass, and an open gate for folks who want to see how a
+        working farm runs.
+      </p>
+      <p>
+        Alongside the beef side of the farm, we love opening up for petting zoos
+        and farm events — the petting-zoo crew (TODO: confirm the animal lineup)
+        earns its keep charming visitors of every age.
+      </p>
+      <p>
+        A note on our beef: we're fully booked for 2026 and not taking orders
+        right now. When availability opens up again, we'll post it first on our
+        <a href="/updates/">Updates</a> page.
+      </p>
+    </Container>
+  </section>
+
+  <section class="section section--flush-top">
+    <Container>
+      <PhotoPlaceholder label="the Lindeman family at Dameya Farm" height={360} />
+    </Container>
+  </section>
+
+  <CtaBand href="/contact/" />
+</BaseLayout>
+
+<style>
+  .section--flush-top { padding-top: 0; }
+</style>

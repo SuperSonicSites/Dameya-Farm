@@ -1,0 +1,77 @@
+---
+// Primary/secondary button — one radius, one padding, consistent everywhere.
+// Renders an <a> when `href` is set, otherwise a <button>.
+interface Props {
+  variant?: 'primary' | 'secondary';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  onLight?: boolean; // secondary variant sitting on a dark/photo background (hero)
+  [key: string]: unknown;
+}
+const {
+  variant = 'primary',
+  href,
+  type,
+  class: className,
+  onLight = false,
+  ...rest
+} = Astro.props;
+const classes = [
+  'btn',
+  `btn--${variant}`,
+  onLight && 'btn--on-dark',
+  className,
+]
+  .filter(Boolean)
+  .join(' ');
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag
+  class={classes}
+  href={href}
+  type={href ? undefined : (type ?? 'button')}
+  {...rest}
+>
+  <slot />
+</Tag>
+
+<style>
+  .btn {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.2;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-control);
+    cursor: pointer;
+    text-decoration: none;
+    border: 1.5px solid transparent;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .btn--primary {
+    background: var(--action-primary);
+    color: var(--cream);
+  }
+  .btn--primary:hover {
+    background: var(--action-primary-hover);
+    color: var(--cream);
+  }
+  .btn--secondary {
+    background: transparent;
+    color: var(--green-700);
+    border-color: var(--green-700);
+  }
+  .btn--secondary:hover { background: var(--green-100); }
+  /* Secondary button on the dark hero photo: cream outline + text. */
+  .btn--secondary.btn--on-dark {
+    color: var(--cream);
+    border-color: var(--cream);
+  }
+  .btn--secondary.btn--on-dark:hover {
+    background: rgba(251, 248, 241, 0.15);
+    color: var(--cream);
+  }
+</style>

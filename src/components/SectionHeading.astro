@@ -1,0 +1,36 @@
+---
+// Eyebrow + serif h2 + optional lead — the section-heading block reused on every page.
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+  class?: string;
+}
+const { eyebrow, title, lead, class: className } = Astro.props;
+---
+
+<div class={['section-heading', className].filter(Boolean).join(' ')}>
+  {eyebrow && <div class="section-heading__eyebrow">{eyebrow}</div>}
+  <h2 class={lead ? 'section-heading__title--lead' : 'section-heading__title'}>{title}</h2>
+  {lead && <p class="section-heading__lead">{lead}</p>}
+</div>
+
+<style>
+  .section-heading { margin-bottom: var(--space-8); }
+  .section-heading__eyebrow {
+    font-family: var(--font-sans);
+    font-size: var(--text-eyebrow);
+    font-weight: 600;
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--hay-500);
+    margin-bottom: var(--space-2);
+  }
+  .section-heading__title { margin: 0; }
+  .section-heading__title--lead { margin: 0 0 var(--space-3); }
+  .section-heading__lead {
+    margin: 0;
+    color: var(--ink-soft);
+    max-width: var(--measure);
+  }
+</style>

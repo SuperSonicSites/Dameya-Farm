@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { site } from '../lib/site';
+
+// Plain-language privacy policy. The site has no forms, no accounts, no
+// analytics, and self-hosted fonts — so it collects very little. Keep this in
+// sync with reality: if you later add analytics or a form, update the relevant
+// section below.
+// TODO (family): have this reviewed against your actual hosting/analytics setup
+// (and, if you want, by a professional) before relying on it. Update the date.
+const lastUpdated = 'July 8, 2026';
+---
+
+<BaseLayout
+  title="Privacy policy"
+  description="How Dameya Farm handles your information — in plain language. We collect very little and never sell your details."
+>
+  <section class="section">
+    <Container narrow>
+      <SectionHeading
+        eyebrow="Privacy"
+        title="Privacy policy"
+        lead="We like to keep things simple and honest — here's how we handle your information."
+      />
+
+      <div class="policy">
+        <p class="policy__updated meta">Last updated: {lastUpdated}</p>
+
+        <p>
+          Dameya Farm is a family farm in {site.town}, operated by
+          {site.operators}. This website is a simple marketing site — there are no
+          accounts to create and no forms to fill in. Because of that, we collect
+          very little information, and we never sell it.
+        </p>
+
+        <h2>When you contact us</h2>
+        <p>
+          If you email or call us to ask a question or book a visit, we keep your
+          message and contact details so we can reply and arrange things with you.
+          We use that information only for that purpose. We don't add you to a
+          mailing list, and we don't share or sell your details.
+        </p>
+
+        <h2>Information the website collects</h2>
+        <p>
+          We don't set cookies, and we don't run advertising or analytics trackers
+          on this site. The fonts are served from our own site, so your browser
+          doesn't make requests to outside font services while you read.
+        </p>
+        <p>
+          Like almost every website, our hosting provider may automatically keep
+          basic technical logs (for example, IP addresses and which pages were
+          requested) to keep the site running and secure. We don't use those logs
+          to identify individual visitors.
+        </p>
+
+        <h2>Who we share information with</h2>
+        <p>
+          We don't sell or trade your information. The only third party involved in
+          running the site is our hosting provider, which stores the site and
+          serves it to visitors. If you email or call us, your message is handled
+          through our email and phone provider, the same as any other message we
+          receive.
+        </p>
+
+        <h2>Children</h2>
+        <p>
+          This site is meant for a general audience and isn't directed at children.
+          We don't knowingly collect information from children through the site.
+        </p>
+
+        <h2>Your choices and rights</h2>
+        <p>
+          If you've been in touch with us and would like to see what we hold, or
+          ask us to correct or delete it, just let us know using the contact
+          details below and we'll take care of it. In Canada, your privacy is also
+          protected under applicable laws such as PIPEDA.
+        </p>
+
+        <h2>Changes to this policy</h2>
+        <p>
+          If we change how the site works — for example, if we ever add a contact
+          form or analytics — we'll update this page and change the date at the top.
+        </p>
+
+        <h2>Contact us</h2>
+        <p>
+          Questions about your privacy? Reach us at
+          <a href={`mailto:${site.email.value}`}>{site.email.value}{site.email.todo && ' (TODO)'}</a>
+          or <a href={`tel:${site.phone.tel}`}>{site.phone.value}{site.phone.todo && ' (TODO)'}</a>.
+          You can also use our <a href="/contact/">contact page</a>.
+        </p>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
+
+<style>
+  .policy__updated { margin-bottom: var(--space-6); }
+  .policy h2 {
+    font-size: 1.375rem;
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+  }
+</style>

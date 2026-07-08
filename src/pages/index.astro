@@ -1,0 +1,160 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Card from '../components/Card.astro';
+import Button from '../components/Button.astro';
+import CtaBand from '../components/CtaBand.astro';
+import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
+import { getSortedUpdates } from '../lib/updates';
+
+const updates = (await getSortedUpdates()).slice(0, 3);
+---
+
+<BaseLayout
+  title="Dameya Farm"
+  description="A family-run working farm in Glen Robertson, Ontario — petting zoos, farm events, and pasture-raised beef."
+>
+  {/* Hero */}
+  <section class="hero">
+    <Container class="hero__inner">
+      <div class="hero__content">
+        <h1 class="hero__title">A working family farm in Glen Robertson.</h1>
+        <p class="hero__lead">
+          We raise our herd on pasture, and love opening the gate for petting
+          zoos and farm events.
+        </p>
+        <div class="hero__actions">
+          <Button href="/contact/">Book a visit</Button>
+          <Button variant="secondary" onLight href="#offer">See what we offer</Button>
+        </div>
+        <p class="hero__todo">TODO photo: herd on pasture (hero background, green overlay)</p>
+      </div>
+    </Container>
+  </section>
+
+  {/* Welcome */}
+  <section class="section">
+    <Container narrow>
+      <p class="lead-text">
+        We're Adam and Danyca Lindeman. Dameya Farm is our family farm in Glen
+        Robertson, Ontario — home to a pasture-raised herd and a barnyard of
+        friendly animals. Come say hello.
+      </p>
+    </Container>
+  </section>
+
+  {/* What we offer */}
+  <section class="section band" id="offer">
+    <Container>
+      <SectionHeading eyebrow="What we offer" title="Visits, events, and honest food" />
+      <div class="grid-auto">
+        <Card tint="green">
+          <h3>Petting zoos</h3>
+          <p class="card-p">
+            We bring the animals to you, or welcome you here at the farm. Great
+            for birthdays, schools, and community days.
+          </p>
+        </Card>
+        <Card tint="green">
+          <h3>Farm events</h3>
+          <p class="card-p">
+            Host your gathering on the farm — contact us for details and
+            availability.
+          </p>
+        </Card>
+        <Card>
+          <h3>Pasture-raised beef</h3>
+          <p class="card-p card-p--spaced">Our herd is raised on pasture, right here.</p>
+          <p class="beef-note">Fully booked for 2026 — not currently taking beef orders.</p>
+        </Card>
+      </div>
+    </Container>
+  </section>
+
+  {/* Farm story */}
+  <section class="section">
+    <Container>
+      <div class="grid-auto--wide story">
+        <PhotoPlaceholder label="the Lindemans with the herd" />
+        <div>
+          <SectionHeading
+            eyebrow="About the farm"
+            title="Family-run, out on pasture"
+            class="story__heading"
+          />
+          <p>
+            Dameya Farm is operated by Adam and Danyca Lindeman. The herd lives
+            on pasture through the seasons, and the petting-zoo crew — TODO:
+            confirm the animal lineup — earns its keep charming visitors.
+          </p>
+          <p class="card-p">
+            We keep things simple: good care, good grass, and an open gate for
+            folks who want to see how a working farm runs.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  {/* Latest updates */}
+  <section class="section section--flush-top">
+    <Container>
+      <SectionHeading eyebrow="Latest updates" title="News from the farm" />
+      <div class="grid-auto">
+        {
+          updates.map((u) => (
+            <Card compact>
+              <div class="update-card__date">{u.displayDate}</div>
+              <h3 class="update-card__title">{u.data.title}</h3>
+              <p class="update-card__excerpt">{u.data.excerpt}</p>
+              <a class="update-card__more" href={u.href}>Read more</a>
+            </Card>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+
+  <CtaBand href="/contact/" />
+</BaseLayout>
+
+<style>
+  .hero {
+    background:
+      linear-gradient(rgba(47, 74, 46, 0.55), rgba(47, 74, 46, 0.55)),
+      var(--green-500);
+    color: var(--cream);
+  }
+  .hero__inner { padding-block: clamp(4rem, 10vw, 7rem); }
+  .hero__content { max-width: 560px; }
+  .hero__title { color: var(--cream); margin: 0 0 var(--space-4); }
+  .hero__lead { font-size: 1.15rem; margin: 0 0 var(--space-8); opacity: 0.95; }
+  .hero__actions { display: flex; gap: var(--space-4); flex-wrap: wrap; }
+  .hero__todo { margin: var(--space-8) 0 0; font-size: 0.85rem; opacity: 0.75; }
+
+  .lead-text { font-size: 1.15rem; margin: 0; }
+
+  .band {
+    background: var(--hay-100);
+    border-block: 1px solid var(--border-hay);
+  }
+
+  .card-p { margin: 0; }
+  .card-p--spaced { margin: 0 0 var(--space-3); }
+  .beef-note { margin: 0; font-weight: 600; color: var(--green-700); }
+
+  .story { align-items: center; }
+  .story__heading { margin-bottom: var(--space-4); }
+
+  .section--flush-top { padding-top: 0; }
+
+  .update-card__date {
+    font-size: var(--text-small);
+    color: var(--ink-soft);
+    margin-bottom: var(--space-1);
+  }
+  .update-card__title { margin: 0 0 var(--space-2); }
+  .update-card__excerpt { margin: 0 0 var(--space-3); font-size: 0.95rem; }
+  .update-card__more { font-weight: 600; font-size: 0.95rem; }
+</style>

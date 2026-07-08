@@ -1,0 +1,47 @@
+---
+import Container from './Container.astro';
+// Green call-to-action band — question + cream-on-green button.
+interface Props {
+  title?: string;
+  buttonLabel?: string;
+  href?: string;
+}
+const {
+  title = 'Want to visit or book an event?',
+  buttonLabel = 'Get in touch',
+  href = '/contact/',
+} = Astro.props;
+---
+
+<section class="cta-band">
+  <Container class="cta-band__inner">
+    <h2 class="cta-band__title">{title}</h2>
+    <a class="cta-band__button" href={href}>{buttonLabel}</a>
+  </Container>
+</section>
+
+<style>
+  .cta-band { background: var(--bg-cta); }
+  .cta-band__inner {
+    padding-block: var(--space-12);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+  }
+  .cta-band__title { margin: 0; color: var(--cream); }
+  .cta-band__button {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1rem;
+    background: var(--cream);
+    color: var(--green-900);
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-control);
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+    white-space: nowrap;
+  }
+  .cta-band__button:hover { background: var(--hay-100); color: var(--green-900); }
+</style>

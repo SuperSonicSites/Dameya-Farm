@@ -1,0 +1,37 @@
+/* Dameya Farm — global stylesheet entry.
+   Imports the design-system tokens (copied verbatim from the Dameya Farm
+   Design System) in the same order as the system's own styles.css. */
+@import './tokens/fonts.css';
+@import './tokens/colors.css';
+@import './tokens/typography.css';
+@import './tokens/spacing.css';
+@import './tokens/base.css';
+
+/* ---- Site-level helpers built on the token layer ---- */
+
+/* Skip link — accessibility, visually hidden until focused. */
+.skip-link {
+  position: absolute;
+  left: var(--space-2);
+  top: var(--space-2);
+  transform: translateY(-150%);
+  background: var(--cream);
+  color: var(--green-900);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-control);
+  font-weight: 600;
+  z-index: 100;
+  transition: transform 0.15s ease;
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* Shared responsive card grid (What we offer, Latest updates, footer). */
+.grid-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-6);
+}
+.grid-auto--wide {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-8);
+}
