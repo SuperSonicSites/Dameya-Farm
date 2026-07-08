@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/Container.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import UpdateItem from '../../components/UpdateItem.astro';
+import { getSortedUpdates } from '../../lib/updates';
+
+const updates = await getSortedUpdates();
+---
+
+<BaseLayout
+  title="Updates"
+  description="News from Dameya Farm — animal arrivals, event recaps, seasonal notes, and beef availability."
+>
+  <section class="section">
+    <Container narrow>
+      <SectionHeading
+        eyebrow="Updates"
+        title="News from the farm"
+        lead="Animal arrivals, event recaps, seasonal notes, and beef availability."
+      />
+      {
+        updates.length === 0 ? (
+          <p>No updates yet — check back soon.</p>
+        ) : (
+          <div class="updates-list">
+            {updates.map((u) => (
+              <UpdateItem
+                date={u.displayDate}
+                title={u.data.title}
+                excerpt={u.data.excerpt}
+                href={u.href}
+              />
+            ))}
+          </div>
+        )
+      }
+    </Container>
+  </section>
+</BaseLayout>
+
+<style>
+  .updates-list { border-top: 1px solid var(--border-hay); }
+</style>

@@ -1,0 +1,37 @@
+/* Dameya Farm — color tokens
+   Green is the brand/primary; hay (warm wheat/tan) is the dominant background. */
+:root {
+  /* Base palette */
+  --green-900: #2F4A2E; /* deep pine — headings, footer bg */
+  --green-700: #3E6B3A; /* primary green — buttons, links, brand */
+  --green-500: #5C8A54; /* hover / accents */
+  --green-100: #E6EEE1; /* soft green tint — section bg, cards */
+  --hay-500:   #C8A96A; /* hay accent — borders, highlights, icon fills */
+  --hay-200:   #EDE0C4; /* warm hay — default page background */
+  --hay-100:   #F7F1E3; /* lightest hay — card / panel background */
+  --cream:     #FBF8F1; /* near-white for contrast panels */
+  --ink:       #26302A; /* body text — dark green-grey, softer than black */
+  --ink-soft:  #5A655C; /* muted text, captions, meta */
+
+  /* Semantic aliases */
+  --bg-page:        var(--hay-200);
+  --bg-panel:       var(--hay-100);
+  --bg-panel-green: var(--green-100);
+  --bg-contrast:    var(--cream);
+  --bg-footer:      var(--green-900);
+  --bg-cta:         var(--green-700);
+
+  --text-body:      var(--ink);
+  --text-muted:     var(--ink-soft);
+  --text-heading:   var(--green-900);
+  --text-on-green:  var(--cream);
+  --text-link:      var(--green-700);
+  --text-link-hover: var(--green-500);
+
+  --action-primary:       var(--green-700);
+  --action-primary-hover: var(--green-500);
+  --accent-hay:           var(--hay-500);
+
+  --border-hay:   rgba(200, 169, 106, 0.45); /* hay-500 low opacity */
+  --border-green: rgba(62, 107, 58, 0.25);   /* green-700 low opacity */
+}

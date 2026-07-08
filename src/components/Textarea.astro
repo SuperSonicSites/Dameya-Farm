@@ -1,0 +1,22 @@
+---
+// Labeled textarea.
+interface Props {
+  label: string;
+  name: string;
+  rows?: number;
+  placeholder?: string;
+  class?: string;
+}
+const { label, name, rows = 5, placeholder, class: className } = Astro.props;
+const id = `field-${name}`;
+---
+
+<div class={className}>
+  <label class="field-label" for={id}>{label}</label>
+  <textarea
+    class="field-control"
+    id={id}
+    name={name}
+    rows={rows}
+    placeholder={placeholder}></textarea>
+</div>

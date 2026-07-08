@@ -1,0 +1,98 @@
+---
+import Container from './Container.astro';
+import Button from './Button.astro';
+
+// Sticky site header — wordmark left, nav + "Book a visit" right.
+// Active link is derived from the current path. On narrow screens the header
+// wraps to a simple stacked/centered menu (no JS — the DS allows a simple wrap).
+const links = [
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about/' },
+  { name: 'Updates', href: '/updates/' },
+  { name: 'Contact', href: '/contact/' },
+];
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+---
+
+<header class="site-header">
+  <Container class="site-header__inner">
+    <a class="site-header__wordmark" href="/">Dameya Farm</a>
+    <nav class="site-header__nav" aria-label="Main">
+      {
+        links.map((l) => (
+          <a
+            class="site-header__link"
+            href={l.href}
+            aria-current={isActive(l.name === 'Home' ? '/' : l.href) ? 'page' : undefined}
+          >
+            {l.name}
+          </a>
+        ))
+      }
+      <Button href="/contact/" class="site-header__cta">Book a visit</Button>
+    </nav>
+  </Container>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--cream);
+    border-bottom: 1px solid var(--border-hay);
+  }
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    flex-wrap: wrap;
+    padding-block: var(--space-3);
+  }
+  .site-header__wordmark {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.375rem;
+    color: var(--green-900);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .site-header__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    flex-wrap: wrap;
+  }
+  .site-header__link {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+  }
+  .site-header__link:hover { color: var(--green-700); }
+  .site-header__link[aria-current='page'] {
+    font-weight: 600;
+    color: var(--green-700);
+    border-bottom-color: var(--hay-500);
+  }
+  .site-header__cta { padding: 0.55rem 1.1rem; }
+
+  /* Narrow screens: stack the wordmark over a centered, wrapping nav. */
+  @media (max-width: 560px) {
+    .site-header__inner {
+      justify-content: center;
+      text-align: center;
+      gap: var(--space-3);
+    }
+    .site-header__nav {
+      justify-content: center;
+      gap: var(--space-4) var(--space-6);
+      width: 100%;
+    }
+  }
+</style>

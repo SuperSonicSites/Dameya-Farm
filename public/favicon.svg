@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- No brand mark exists; per the design system the identity is plain type.
+       Favicon is the wordmark initial in Bitter-style serif on deep pine. -->
+  <rect width="32" height="32" rx="6" fill="#2F4A2E"/>
+  <text x="16" y="23" font-family="Georgia, 'Times New Roman', serif" font-size="20"
+        font-weight="700" fill="#FBF8F1" text-anchor="middle">D</text>
+</svg>

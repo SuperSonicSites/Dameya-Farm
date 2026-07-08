@@ -1,0 +1,93 @@
+---
+import Container from './Container.astro';
+// Deep-green site footer — blurb, quick links, contact.
+// TODO: replace the placeholder email and phone with the family's real details.
+const year = 2026;
+---
+
+<footer class="site-footer">
+  <Container class="site-footer__inner">
+    <div class="site-footer__grid">
+      <div>
+        <div class="site-footer__wordmark">Dameya Farm</div>
+        <p class="site-footer__blurb">
+          A working family farm raising our herd on pasture, and opening the gate
+          for petting zoos and events.
+        </p>
+      </div>
+      <div>
+        <div class="site-footer__heading">Pages</div>
+        <a class="site-footer__link" href="/">Home</a>
+        <a class="site-footer__link" href="/about/">About</a>
+        <a class="site-footer__link" href="/updates/">Updates</a>
+        <a class="site-footer__link" href="/contact/">Contact</a>
+      </div>
+      <div>
+        <div class="site-footer__heading">Get in touch</div>
+        <a class="site-footer__link" href="mailto:hello@example.com">hello@example.com (TODO)</a>
+        <a class="site-footer__link" href="tel:+16135550000">(613) 555-0000 (TODO)</a>
+        <div class="site-footer__link site-footer__link--static">Glen Robertson, Ontario</div>
+      </div>
+    </div>
+    <div class="site-footer__legal">
+      <span>Glen Robertson, Ontario · Petting zoos &amp; farm events</span>
+      <span>© {year} Dameya Farm · Adam &amp; Danyca Lindeman</span>
+    </div>
+  </Container>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--bg-footer);
+    color: var(--cream);
+  }
+  .site-footer__inner { padding-block: var(--space-12); }
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-8);
+  }
+  .site-footer__wordmark {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: var(--space-3);
+  }
+  .site-footer__blurb {
+    margin: 0;
+    font-size: 0.95rem;
+    opacity: 0.92;
+    max-width: 32ch;
+    color: var(--cream);
+  }
+  .site-footer__heading {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--hay-500);
+    margin: 0 0 var(--space-3);
+  }
+  .site-footer__link {
+    color: var(--cream);
+    text-decoration: none;
+    display: block;
+    padding: 0.15rem 0;
+    opacity: 0.92;
+  }
+  .site-footer__link:hover { opacity: 1; color: var(--cream); text-decoration: underline; }
+  .site-footer__link--static { cursor: default; }
+  .site-footer__link--static:hover { text-decoration: none; }
+  .site-footer__legal {
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: 1px solid rgba(251, 248, 241, 0.18);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    font-size: 0.875rem;
+    opacity: 0.8;
+  }
+</style>

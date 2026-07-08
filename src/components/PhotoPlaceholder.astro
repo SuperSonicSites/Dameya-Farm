@@ -1,0 +1,39 @@
+---
+// Labeled photo placeholder. No real farm photography exists yet (see the design
+// system's Caveats); every image slot renders one of these until the family
+// supplies real photos. Swap for Astro <Image> when photos arrive.
+interface Props {
+  label: string;
+  height?: number | string;
+  class?: string;
+}
+const { label, height = 260, class: className } = Astro.props;
+const h = typeof height === 'number' ? `${height}px` : height;
+---
+
+<div
+  class={['photo-placeholder', className].filter(Boolean).join(' ')}
+  role="img"
+  aria-label={`Placeholder for photo: ${label}`}
+  style={`height:${h}`}
+>
+  TODO photo: {label}
+</div>
+
+<style>
+  .photo-placeholder {
+    border-radius: var(--radius-card);
+    background:
+      linear-gradient(rgba(47, 74, 46, 0.25), rgba(47, 74, 46, 0.25)),
+      var(--green-100);
+    border: 1px dashed var(--border-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green-900);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 0 1rem;
+  }
+</style>

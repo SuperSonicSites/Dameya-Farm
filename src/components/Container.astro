@@ -1,0 +1,16 @@
+---
+// The single layout primitive — every section's inner content is wrapped in one.
+// max 1120px (or 720px `narrow`), centered, responsive clamp() side padding.
+interface Props {
+  narrow?: boolean;
+  class?: string;
+  as?: string;
+}
+const { narrow = false, class: className, as = 'div' } = Astro.props as Props;
+const Tag = as as any;
+const classes = ['container', narrow && 'container--narrow', className]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<Tag class={classes}><slot /></Tag>
