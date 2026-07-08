@@ -7,6 +7,11 @@ import Button from '../components/Button.astro';
 import Input from '../components/Input.astro';
 import Select from '../components/Select.astro';
 import Textarea from '../components/Textarea.astro';
+import { site, formAction } from '../lib/site';
+
+// Formspree redirects here after a successful submission (see the hidden `_next`
+// field below) — a dedicated, fully-static thank-you page (no client JS needed).
+const thanksUrl = new URL('/contact/thanks/', Astro.site).href;
 ---
 
 <BaseLayout
@@ -25,28 +30,45 @@ import Textarea from '../components/Textarea.astro';
         <div class="contact-details__grid">
           <div>
             <div class="contact-details__label">Email</div>
-            <a class="contact-details__value" href="mailto:hello@example.com">hello@example.com (TODO)</a>
+            <a class="contact-details__value" href={`mailto:${site.email.value}`}>
+              {site.email.value}{site.email.todo && ' (TODO)'}
+            </a>
           </div>
           <div>
             <div class="contact-details__label">Phone</div>
-            <a class="contact-details__value" href="tel:+16135550000">(613) 555-0000 (TODO)</a>
+            <a class="contact-details__value" href={`tel:${site.phone.tel}`}>
+              {site.phone.value}{site.phone.todo && ' (TODO)'}
+            </a>
           </div>
           <div>
             <div class="contact-details__label">Where</div>
-            <div class="contact-details__value">Glen Robertson, Ontario</div>
+            <div class="contact-details__value">{site.town}</div>
           </div>
         </div>
       </Card>
 
+      {
+        site.form.todo && (
+          <p class="form-notice">
+            Heads up: the contact form isn't connected yet. To turn it on, create
+            a free form at <a href="https://formspree.io">formspree.io</a> and put
+            its ID in <code>src/lib/site.ts</code>. In the meantime, reach us by
+            email or phone above.
+          </p>
+        )
+      }
+
       {/*
-        TODO: wire this form to a real endpoint before launch. Options (no server
-        needed — the site is static):
-          - a form service (Formspree, Basin, Web3Forms): set `action` to the
-            endpoint URL they give you; the fields below post as-is.
-          - a mailto: fallback (not spam-safe, but zero setup).
-          - an Astro API route if you later switch to `output: 'server'`.
+        Wired for Formspree (https://formspree.io) — a static-site-friendly form
+        service, no server required. The endpoint is built from the form ID in
+        src/lib/site.ts. `_next` sends visitors back here with a thank-you;
+        `_gotcha` is a honeypot spam trap. Prefer another service (Basin,
+        Web3Forms) or an Astro API route? Swap `formAction` and the hidden fields.
       */}
-      <form class="contact-form" method="post" action="#TODO-form-endpoint">
+      <form class="contact-form" method="post" action={formAction}>
+        <input type="hidden" name="_subject" value="New enquiry from the Dameya Farm website" />
+        <input type="hidden" name="_next" value={thanksUrl} />
+        <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <div class="contact-form__row">
           <Input label="Name" name="name" placeholder="Your name" required />
           <Input label="Email" name="email" type="email" placeholder="you@example.com" required />
@@ -89,6 +111,30 @@ import Textarea from '../components/Textarea.astro';
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: var(--space-4);
+  }
+  /* Honeypot — hidden from people, tempting to bots. */
+  .honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .form-notice {
+    background: var(--green-100);
+    border: 1px solid var(--border-green);
+    border-radius: var(--radius-card);
+    padding: var(--space-4) var(--space-6);
+    margin-bottom: var(--space-6);
+    font-size: 0.95rem;
+    max-width: none;
+  }
+  .form-notice code {
+    font-size: 0.9em;
+    background: var(--hay-100);
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
   }
 
   .beef-aside { margin-top: var(--space-8); }

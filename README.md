@@ -67,15 +67,24 @@ public/           favicon.svg
 These are intentional placeholders — the design system shipped with no real
 assets. Search the source for `TODO` to find them all.
 
+All the site-wide placeholders now live in one file — **`src/lib/site.ts`**
+(name, town, email, phone, and the contact-form ID). Edit that, and the header,
+footer, contact page, and structured data all update together.
+
+- **Contact details:** set the real `email` and `phone` in `src/lib/site.ts` and
+  flip each `todo` to `false` (that removes the on-page "(TODO)" tag).
+- **Contact form:** wired to [Formspree](https://formspree.io) (static-friendly,
+  no server). Create a free form, paste its ID into `site.form.formspreeId` in
+  `src/lib/site.ts`, and set `todo: false`. Until then the form shows a notice and
+  the fields still validate. It includes a honeypot spam trap and redirects to
+  `/contact/thanks/` on success. Prefer another service or an Astro API route?
+  Swap `formAction` and the hidden fields in `contact.astro`.
 - **Photography:** every image is a labeled placeholder (`PhotoPlaceholder.astro`).
   Add real photos and swap for Astro's `<Image>`.
-- **Contact details:** real email and phone (currently `hello@example.com` /
-  `(613) 555-0000`, marked `(TODO)`), in `SiteFooter.astro` and `contact.astro`.
-- **Contact form endpoint:** the form in `contact.astro` posts to a placeholder
-  `action`. Point it at a form service (Formspree/Basin/Web3Forms), a `mailto:`,
-  or an Astro API route.
-- **Fonts:** loaded from Google Fonts CDN (`src/styles/tokens/fonts.css`). Self-host
-  the Bitter + Source Sans 3 files for a fully machine-independent build.
-- **Production domain:** set `site` in `astro.config.mjs` (used for the sitemap and
-  canonical/Open Graph URLs).
+- **Fonts:** ✅ self-hosted — Bitter + Source Sans 3 (variable, latin + latin-ext)
+  live in `public/fonts/`, declared in `src/styles/tokens/fonts.css`, with the two
+  always-used subsets preloaded. No external font requests. Replace the files if
+  the family supplies their own licensed binaries.
+- **Production domain:** set `site` in `astro.config.mjs` (used for the sitemap,
+  canonical/Open Graph URLs, and the form's success redirect).
 - **Animal lineup / pricing:** confirm real copy where the source notes `TODO`.

@@ -1,7 +1,8 @@
 ---
 import Container from './Container.astro';
+import { site } from '../lib/site';
 // Deep-green site footer — blurb, quick links, contact.
-// TODO: replace the placeholder email and phone with the family's real details.
+// Contact details come from src/lib/site.ts (single source of truth).
 const year = 2026;
 ---
 
@@ -24,9 +25,13 @@ const year = 2026;
       </div>
       <div>
         <div class="site-footer__heading">Get in touch</div>
-        <a class="site-footer__link" href="mailto:hello@example.com">hello@example.com (TODO)</a>
-        <a class="site-footer__link" href="tel:+16135550000">(613) 555-0000 (TODO)</a>
-        <div class="site-footer__link site-footer__link--static">Glen Robertson, Ontario</div>
+        <a class="site-footer__link" href={`mailto:${site.email.value}`}>
+          {site.email.value}{site.email.todo && ' (TODO)'}
+        </a>
+        <a class="site-footer__link" href={`tel:${site.phone.tel}`}>
+          {site.phone.value}{site.phone.todo && ' (TODO)'}
+        </a>
+        <div class="site-footer__link site-footer__link--static">{site.town}</div>
       </div>
     </div>
     <div class="site-footer__legal">
