@@ -35,32 +35,3 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--space-8);
 }
-
-/* ---- Form controls (shared by Input / Select / Textarea) ---- */
-.field-label {
-  display: block;
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--ink);
-  margin-bottom: var(--space-1);
-}
-.field-label__hint { font-weight: 400; color: var(--ink-soft); }
-.field-control {
-  display: block;
-  width: 100%;
-  font-family: var(--font-sans);
-  font-size: 1rem;
-  color: var(--ink);
-  background: var(--cream);
-  border: 1px solid var(--border-hay);
-  border-radius: var(--radius-control);
-  padding: 0.7rem 0.9rem;
-  box-sizing: border-box;
-}
-textarea.field-control { resize: vertical; }
-.field-control:focus-visible {
-  outline: var(--focus-ring);
-  outline-offset: var(--focus-offset);
-  border-color: var(--green-500);
-}

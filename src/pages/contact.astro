@@ -4,86 +4,48 @@ import Container from '../components/Container.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import Card from '../components/Card.astro';
 import Button from '../components/Button.astro';
-import Input from '../components/Input.astro';
-import Select from '../components/Select.astro';
-import Textarea from '../components/Textarea.astro';
-import { site, formAction } from '../lib/site';
-
-// Formspree redirects here after a successful submission (see the hidden `_next`
-// field below) — a dedicated, fully-static thank-you page (no client JS needed).
-const thanksUrl = new URL('/contact/thanks/', Astro.site).href;
+import { site } from '../lib/site';
 ---
 
 <BaseLayout
   title="Contact"
-  description="Get in touch with Dameya Farm in Glen Robertson, Ontario — book a petting zoo, plan a farm event, or ask a question."
+  description="Get in touch with Dameya Farm in Glen Robertson, Ontario — book a petting zoo, plan a farm event, or ask a question by email or phone."
 >
   <section class="section">
     <Container narrow>
       <SectionHeading
         eyebrow="Contact"
         title="Come say hello"
-        lead="Book a visit, plan an event, or just ask a question — we'd love to hear from you."
+        lead="Book a visit, plan an event, or just ask a question — reach us by email or phone and we'll get right back to you."
       />
 
-      <Card compact class="contact-details">
-        <div class="contact-details__grid">
-          <div>
-            <div class="contact-details__label">Email</div>
-            <a class="contact-details__value" href={`mailto:${site.email.value}`}>
-              {site.email.value}{site.email.todo && ' (TODO)'}
-            </a>
-          </div>
-          <div>
-            <div class="contact-details__label">Phone</div>
-            <a class="contact-details__value" href={`tel:${site.phone.tel}`}>
-              {site.phone.value}{site.phone.todo && ' (TODO)'}
-            </a>
-          </div>
-          <div>
-            <div class="contact-details__label">Where</div>
-            <div class="contact-details__value">{site.town}</div>
-          </div>
-        </div>
+      <div class="contact-methods">
+        <Card class="contact-method">
+          <div class="contact-method__label">Email</div>
+          <a class="contact-method__value" href={`mailto:${site.email.value}`}>
+            {site.email.value}{site.email.todo && ' (TODO)'}
+          </a>
+          <p class="contact-method__hint">The easiest way to reach us — we read every message.</p>
+          <Button href={`mailto:${site.email.value}`}>Send an email</Button>
+        </Card>
+
+        <Card class="contact-method">
+          <div class="contact-method__label">Phone</div>
+          <a class="contact-method__value" href={`tel:${site.phone.tel}`}>
+            {site.phone.value}{site.phone.todo && ' (TODO)'}
+          </a>
+          <p class="contact-method__hint">Prefer to talk it through? Give us a call.</p>
+          <Button variant="secondary" href={`tel:${site.phone.tel}`}>Call the farm</Button>
+        </Card>
+      </div>
+
+      <Card tint="green" compact class="contact-where">
+        <div class="contact-method__label">Where we are</div>
+        <p class="contact-where__text">
+          {site.town}. We host visits here at the farm and also travel for petting
+          zoos — mention what you have in mind and we'll sort out the details.
+        </p>
       </Card>
-
-      {
-        site.form.todo && (
-          <p class="form-notice">
-            Heads up: the contact form isn't connected yet. To turn it on, create
-            a free form at <a href="https://formspree.io">formspree.io</a> and put
-            its ID in <code>src/lib/site.ts</code>. In the meantime, reach us by
-            email or phone above.
-          </p>
-        )
-      }
-
-      {/*
-        Wired for Formspree (https://formspree.io) — a static-site-friendly form
-        service, no server required. The endpoint is built from the form ID in
-        src/lib/site.ts. `_next` sends visitors back here with a thank-you;
-        `_gotcha` is a honeypot spam trap. Prefer another service (Basin,
-        Web3Forms) or an Astro API route? Swap `formAction` and the hidden fields.
-      */}
-      <form class="contact-form" method="post" action={formAction}>
-        <input type="hidden" name="_subject" value="New enquiry from the Dameya Farm website" />
-        <input type="hidden" name="_next" value={thanksUrl} />
-        <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <div class="contact-form__row">
-          <Input label="Name" name="name" placeholder="Your name" required />
-          <Input label="Email" name="email" type="email" placeholder="you@example.com" required />
-        </div>
-        <Input label="Phone" name="phone" hint="optional" type="tel" placeholder="(613) 555-0000" />
-        <Select
-          label="What are you interested in?"
-          name="interest"
-          options={['Petting zoo', 'Farm event', 'Other']}
-        />
-        <Textarea label="Message" name="message" rows={5} placeholder="Tell us about your visit or event…" />
-        <div>
-          <Button type="submit">Send message</Button>
-        </div>
-      </form>
 
       <p class="meta beef-aside">
         A note on beef: we're fully booked for 2026 and not taking beef orders
@@ -94,48 +56,31 @@ const thanksUrl = new URL('/contact/thanks/', Astro.site).href;
 </BaseLayout>
 
 <style>
-  .contact-details { margin-bottom: var(--space-8); }
-  .contact-details__grid {
+  .contact-methods {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: var(--space-4);
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-6);
+    margin-bottom: var(--space-6);
   }
-  .contact-details__label {
+  .contact-method__label {
     font-size: var(--text-small);
     color: var(--ink-soft);
+    margin-bottom: var(--space-1);
   }
-  .contact-details__value { font-weight: 600; }
+  .contact-method__value {
+    display: inline-block;
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--green-900);
+    text-decoration: none;
+    margin-bottom: var(--space-2);
+  }
+  .contact-method__value:hover { color: var(--green-700); }
+  .contact-method__hint { margin: 0 0 var(--space-6); font-size: 0.95rem; }
 
-  .contact-form { display: grid; gap: var(--space-4); }
-  .contact-form__row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: var(--space-4);
-  }
-  /* Honeypot — hidden from people, tempting to bots. */
-  .honeypot {
-    position: absolute;
-    left: -9999px;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-  }
-
-  .form-notice {
-    background: var(--green-100);
-    border: 1px solid var(--border-green);
-    border-radius: var(--radius-card);
-    padding: var(--space-4) var(--space-6);
-    margin-bottom: var(--space-6);
-    font-size: 0.95rem;
-    max-width: none;
-  }
-  .form-notice code {
-    font-size: 0.9em;
-    background: var(--hay-100);
-    padding: 0.1em 0.35em;
-    border-radius: 4px;
-  }
+  .contact-where { margin-bottom: var(--space-8); }
+  .contact-where__text { margin: 0; }
 
   .beef-aside { margin-top: var(--space-8); }
 </style>

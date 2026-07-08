@@ -51,13 +51,12 @@ npm run check     # astro type-check
 ```
 src/
   components/     Container, Button, Card, SectionHeading, UpdateItem,
-                  PhotoPlaceholder, Input/Select/Textarea, SiteHeader,
-                  SiteFooter, CtaBand
+                  PhotoPlaceholder, SiteHeader, SiteFooter, CtaBand
   content/updates/  Markdown posts (the blog)
   content.config.ts Content-collection schema
   layouts/        BaseLayout.astro (head, meta, OG, JSON-LD, header, footer)
-  lib/            format.ts (dates), updates.ts (sorted posts helper)
-  pages/          index, about, contact, updates/index, updates/[...slug]
+  lib/            format.ts (dates), updates.ts (sorted posts), site.ts (config)
+  pages/          index, about, contact, privacy, updates/index, updates/[...slug]
   styles/         global.css + tokens/ (from the design system)
 public/           favicon.svg
 ```
@@ -73,12 +72,11 @@ footer, contact page, and structured data all update together.
 
 - **Contact details:** set the real `email` and `phone` in `src/lib/site.ts` and
   flip each `todo` to `false` (that removes the on-page "(TODO)" tag).
-- **Contact form:** wired to [Formspree](https://formspree.io) (static-friendly,
-  no server). Create a free form, paste its ID into `site.form.formspreeId` in
-  `src/lib/site.ts`, and set `todo: false`. Until then the form shows a notice and
-  the fields still validate. It includes a honeypot spam trap and redirects to
-  `/contact/thanks/` on success. Prefer another service or an Astro API route?
-  Swap `formAction` and the hidden fields in `contact.astro`.
+- **Contact:** email + phone only — no form. The contact page and footer link
+  straight to `mailto:` / `tel:`. Set the real values in `src/lib/site.ts`.
+- **Privacy policy:** `/privacy/` — a plain-language policy that matches how the
+  site actually works (no forms, no cookies, no trackers, self-hosted fonts).
+  Linked from the footer. Have it reviewed and update the date before launch.
 - **Photography:** every image is a labeled placeholder (`PhotoPlaceholder.astro`).
   Add real photos and swap for Astro's `<Image>`.
 - **Fonts:** ✅ self-hosted — Bitter + Source Sans 3 (variable, latin + latin-ext)

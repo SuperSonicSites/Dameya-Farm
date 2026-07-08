@@ -36,7 +36,10 @@ const year = 2026;
     </div>
     <div class="site-footer__legal">
       <span>Glen Robertson, Ontario · Petting zoos &amp; farm events</span>
-      <span>© {year} Dameya Farm · Adam &amp; Danyca Lindeman</span>
+      <span class="site-footer__legal-right">
+        <a class="site-footer__legal-link" href="/privacy/">Privacy</a>
+        <span>© {year} Dameya Farm · Adam &amp; Danyca Lindeman</span>
+      </span>
     </div>
   </Container>
 </footer>
@@ -95,4 +98,14 @@ const year = 2026;
     font-size: 0.875rem;
     opacity: 0.8;
   }
+  .site-footer__legal-right {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+  .site-footer__legal-link {
+    color: var(--cream);
+    text-decoration: none;
+  }
+  .site-footer__legal-link:hover { color: var(--cream); text-decoration: underline; }
 </style>
